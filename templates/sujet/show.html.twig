@@ -35,7 +35,13 @@
             </tr>
             <tr>
                 <th>Baguette</th>
-                <td>{{ sujet.baguette.libelle }}</td>
+                <td>
+                    {% if sujet.baguette %}       {# Si il y a une baguette on donne le nom sinon on affiche NR #}
+                        {{ sujet.baguette.libelle }}
+                    {% else %}
+                        <span class="text-danger fst-italic">N.R</span>
+                    {% endif %}
+                </td>
             </tr>
             <tr>
                 <th>Taille du Passe-Partout</th>
@@ -43,7 +49,13 @@
             </tr>
             <tr>
                 <th>Passe-Partout</th>
-                <td>{{ sujet.passepartout.libelle }}</td>
+                <td>
+                    {% if sujet.passepartout %}
+                        {{ sujet.passepartout.libelle }}
+                    {% else %}
+                        <span class="text-danger fst-italic">N.R</span>
+                    {% endif %}
+                </td>
             </tr>
             <tr>
                 <th>Taille du Verre</th>
@@ -51,7 +63,13 @@
             </tr>
             <tr>
                 <th>Verre</th>
-                <td>{{ sujet.verre.libelle }}</td>
+                <td>
+                    {% if sujet.verre %}
+                        {{ sujet.verre.libelle }}
+                    {% else %}
+                        <span class="text-danger fst-italic">N.R</span>
+                    {% endif %}
+                </td>
             </tr>
             <tr>
                 <th>Montant Total</th>

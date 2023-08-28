@@ -4,8 +4,10 @@ namespace App\Form;
 
 use App\Form\SujetType;
 use App\Entity\Commande;
+use App\Entity\EtatCommand;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
@@ -17,6 +19,10 @@ class AjoutCommandeType extends AbstractType
         $builder
             ->add('date', null, [
                 'label' => 'Date de la commande',
+                'format' => 'ddMMyyyy',
+                'placeholder' => [
+                    'year' => 'Année', 'month' => 'Moi', 'day' => 'Jour',
+                ],
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Veuillez saisir une date'
@@ -27,6 +33,18 @@ class AjoutCommandeType extends AbstractType
                 'isCommand' => true,    // Option pour ne pas faire apparaitre le mot de passe ici
             ])
             ->add('prix')
+            ->add('etatCommand', EntityType::class, [
+                'class' => EtatCommand::class,
+                'choice_label' => 'etatCommand',
+                'placeholder' => 'Selectionner l\'état de la commande',
+                'expanded' => true,
+                'label' => 'Etat de la commande',
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Veuillez saisir un état'
+                    ])
+                ]    
+            ])
             ->add('sujets', CollectionType::class, [
                 'entry_type' => SujetType::class,
                 // 'isSujet' => true,

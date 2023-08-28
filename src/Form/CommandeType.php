@@ -20,7 +20,11 @@ class CommandeType extends AbstractType
                     new NotBlank([
                         'message' => 'Veuillez saisir une date'
                     ])
-                ]
+                    ],
+                'format' => 'ddMMyyyy',
+                'placeholder' => [
+                    'year' => 'Année', 'month' => 'Moi', 'day' => 'Jour',
+                ],
             ])
             ->add('user', UserType::class, [
                 'mapped' => false,
@@ -37,7 +41,7 @@ class CommandeType extends AbstractType
                     new NotBlank([
                         'message' => 'Veuillez saisir un état'
                     ])
-                ]    
+                    ],
             ])
         ;
     }

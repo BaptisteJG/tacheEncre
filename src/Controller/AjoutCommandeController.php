@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Entity\Sujet;
 use App\Entity\Commande;
+use App\Entity\EtatCommand;
 use App\Form\AjoutCommandeType;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -41,7 +42,7 @@ class AjoutCommandeController extends AbstractController
             }
             $commande->setUser($user);
 
-            $entityManager->persist($sujet);
+            // $entityManager->persist($sujet);     // Mis en commentaire car ajouter un sujet entierement Null a chaque fois
             $entityManager->persist($commande);
             $entityManager->flush();
 
