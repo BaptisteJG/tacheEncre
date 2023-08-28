@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{parent()}} | Codes Postaux{% endblock %}
+
+{% block body %}
+    <h1>Codes Postaux</h1>
+
+    <a href="{{ path('app_codespostaux_new') }}" class="btn btn-secondary">Ajouter</a>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Numero</th>
+                <th></th>
+                <th class='text-end'>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for codespostaux in codespostauxes %}
+            <tr>
+                <td>{{ codespostaux.id }}</td>
+                <td>{{ codespostaux.numero }}</td>    
+                <td class='text-end'>
+                    <a href="{{ path('app_codespostaux_edit', {'id': codespostaux.id}) }}" class="text-success"><i class="fa-solid fa-pencil"></i></a>
+                </td>    
+                <td class='text-end'>
+                    {{ include('codespostaux/_delete_form.html.twig') }}
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">Pas de donnée</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{parent()}} | Ajouter une Commande{% endblock %}
+
+{% block body %}
+    <h1>Ajouter une Commande</h1>
+
+    <a href="{{ path('app_commande_index') }}" class="btn btn-secondary">Retour à la liste</a>
+
+    {{ include('commande/_form.html.twig') }}
+
+{% endblock %}

@@ -1,0 +1,72 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }} | Sujet Commandes{{ commande.id }}{% endblock %}
+
+{% block body %}
+    <h1>Liste des sujets de la commandes n°{{ commande.id }}</h1>
+
+    <a href="{{ path('app_commande_client') }}" class="btn btn-secondary">Retour à la liste</a>
+
+    <h2>Etat de la commande : {{ commande.etatCommand.etatCommand }}</h2>
+
+    {% for sujet in sujets %}
+
+        <div class="card m-2" style="width: 40rem;">
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                    <table class="table">
+                        <tr>
+                            <th>Description du sujet</th>
+                            <td>{{ sujet.description }}</td>
+                        </tr>
+                    </table>
+                </li>
+                <li class="list-group-item">
+                    <table class="table">
+                        <tr>
+                            <th>Format du Sujet</th>
+                            <td>{{ sujet.formatSujet }}</td>
+                        </tr>
+                    </table>
+                </li>
+                <li class="list-group-item">
+                    <table class="table">
+                        <tr>
+                            <th>Baguette choisie</th>
+                            <td>{{ sujet.tailleBaguette }}</td>
+                            <td>{{ sujet.baguette.libelle }}</td>
+                        </tr>
+                    </table>
+                </li> 
+                <li class="list-group-item">
+                    <table class="table">
+                        <tr>
+                            <th>Passe-Partout choisie</th>
+                            <td>{{ sujet.taillePP }}</td>
+                            <td>{{ sujet.passepartout.libelle }}</td>
+                        </tr>
+                    </table>
+                </li> 
+                <li class="list-group-item">
+                    <table class="table">
+                        <tr>
+                            <th>Verre choisie</th>
+                            <td>{{ sujet.tailleVerre }}</td>
+                            <td>{{ sujet.verre.libelle }}</td>
+                        </tr>
+                    </table>
+                </li> 
+                <li class="list-group-item">
+                    <table class="table">
+                        <tr>
+                            <th>Montant du sujet</th>
+                            <td>{{ sujet.montantTotal }}</td>
+                        </tr>
+                    </table>
+                </li> 
+            </ul>
+        </div>
+
+    {% endfor %}
+
+{% endblock %}

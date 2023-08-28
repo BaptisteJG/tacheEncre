@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{parent()}} | Ajouter une Matiere{% endblock %}
+
+{% block body %}
+    <h1>Ajouter une Matiere</h1>
+
+    <a href="{{ path('app_matiere_index') }}" class="btn btn-secondary">Retour à la liste</a>
+
+    {{ include('matiere/_form.html.twig') }}
+
+{% endblock %}

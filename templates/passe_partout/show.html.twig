@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{parent()}} | Passe Partout{% endblock %}
+
+{% block body %}
+    <h1>Passe Partout</h1>
+
+    <a href="{{ path('app_passe_partout_index') }}" class="btn btn-secondary">Retour à la liste</a>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ passe_partout.id }}</td>
+            </tr>
+            <tr>
+                <th>Libelle</th>
+                <td>{{ passe_partout.libelle }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+{% endblock %}

@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{parent()}} | Ajouter un Codes postal{% endblock %}
+
+{% block body %}
+    <h1>Ajouter un Codes postal</h1>
+
+    <a href="{{ path('app_codespostaux_index') }}" class="btn btn-secondary">Retour à la liste</a>
+
+    {{ include('codespostaux/_form.html.twig') }}
+
+{% endblock %}

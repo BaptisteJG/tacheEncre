@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{parent()}} | Liste des Passes Partout{% endblock %}
+
+{% block body %}
+    <h1>Liste des Passes Partout</h1>
+
+    <a href="{{ path('app_passe_partout_new') }}" class="btn btn-secondary">Ajouter</a>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Libelle</th>
+                <th>Couleur</th>
+                <th>Fournisseur</th>
+                <th></th>
+                <th class="text-end">actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for passe_partout in passe_partouts %}
+            <tr>
+                <td>{{ passe_partout.id }}</td>
+                <td>{{ passe_partout.libelle }}</td>
+                <td>{{ passe_partout.couleur.libelle }}</td>
+                <td>{{ passe_partout.fournisseur.nom }}</td>
+                <td class="text-end">
+                    <a href="{{ path('app_passe_partout_edit', {'id': passe_partout.id}) }}" class="text-success"><i class="fa-solid fa-pencil"></i></a>
+                </td>
+                <td class="text-end">
+                    {{ include('passe_partout/_delete_form.html.twig') }}
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">Pas de données</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

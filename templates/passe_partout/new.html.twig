@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{parent()}} | Ajouter Passe Partout{% endblock %}
+
+{% block body %}
+    <h1>Ajouter Passe Partout</h1>
+
+    <a href="{{ path('app_passe_partout_index') }}" class="btn btn-secondary">Retour à la liste</a>
+
+    {{ include('passe_partout/_form.html.twig') }}
+
+{% endblock %}

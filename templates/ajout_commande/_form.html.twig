@@ -1,0 +1,22 @@
+{{ form_start(form) }}
+    {{ form_row(form.date) }}
+    {{ form_row(form.user.email) }}
+    {{ form_row(form.user.nom) }}
+    {{ form_row(form.user.tel) }}
+    {{ form_row(form.prix) }}
+
+
+    <ul class="sujets"
+        data-index="{{ form.sujets|length > 0 ? form.sujets|last.vars.name + 1 : 0 }}"
+        data-prototype="{{ form_row(form.sujets.vars.prototype)|e('html_attr') }}">
+    
+        {% for sujet in form.sujets %}
+            <li>{{ form_row(sujet) }}</li>
+        {% endfor %}
+    </ul>
+
+    <button type="button" class="add_item_link btn btn-primary" data-collection-holder-class="sujets">Ajouter un sujet</button>
+
+
+    <button class="btn btn-secondary">{{ button_label|default('Ajouter la Commande') }}</button>
+{{ form_end(form) }} 

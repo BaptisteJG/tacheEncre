@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }} | Baguette{% endblock %}
+
+{% block body %}
+    <h1>Baguette</h1>
+
+    <a href="{{ path('app_baguette_index') }}" class="btn btn-secondary">Retour à la liste</a>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ baguette.id }}</td>
+            </tr>
+            <tr>
+                <th>Libelle</th>
+                <td>{{ baguette.libelle }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{parent()}} | Liste des Adresses{% endblock %}
+
+{% block body %}
+    <h1>Liste des Adresses</h1>
+
+    <a href="{{ path('app_adresse_new') }}" class="btn btn-secondary">Ajouter</a>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Numéro et nom de rue</th>
+                <th>Ville</th>
+                <th>Code Postal</th>
+                <th></th>
+                <th class='text-end'>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for adresse in adresses %}
+            <tr>
+                <td>{{ adresse.id }}</td>
+                <td>{{ adresse.numRue }}</td>
+                <td>{{ adresse.ville.libelle }}</td>
+                <td>{{ adresse.codespostaux.numero }}</td>  
+                <td class='text-end'>
+                    <a href="{{ path('app_adresse_edit', {'id': adresse.id}) }}" class="text-success"><i class="fa-solid fa-pencil"></i></a>
+                </td>    
+                <td class='text-end'>
+                    {{ include('adresse/_delete_form.html.twig') }}
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">Pas de donnée</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }} | Baguette{% endblock %}
+
+{% block body %}
+    <h1>Baguette</h1>
+
+    <a href="{{ path('app_baguette_new') }}" class="btn btn-secondary">Ajouter</a>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Libelle</th>
+                <th>Matières</th>
+                <th>Couleur</th>
+                <th>Type de cadre</th>
+                <th>Fournisseur</th>
+                <th></th>
+                <th class="text-end">actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for baguette in baguettes %}
+            <tr>
+                <td>{{ baguette.id }}</td>
+                <td>{{ baguette.libelle }}</td>
+                <td>
+                    {% for matiere in baguette.matiere %}
+                        {{ matiere.libelle }}
+                    {% endfor %}
+                </td>
+                <td>{{ baguette.couleur.libelle }}</td>
+                <td>{{ baguette.typescadres.libelle }}</td>
+                <td>{{ baguette.fournisseur.nom }}</td>  
+                <td class="text-end">   
+                    <a href="{{ path('app_baguette_edit', {'id': baguette.id}) }}" class="text-success"><i class="fa-solid fa-pencil"></i></a>
+                </td>
+                <td class="text-end">
+                    {{ include('baguette/_delete_form.html.twig') }}
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="8">Pas de donnée</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

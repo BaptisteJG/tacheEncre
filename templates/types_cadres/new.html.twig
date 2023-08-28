@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{parent()}} | Nouveau Type Cadre{% endblock %}
+
+{% block body %}
+    <h1>Nouveau Type Cadre</h1>
+
+    <a href="{{ path('app_types_cadres_index') }}" class="btn btn-secondary">Retour à la liste</a>
+
+    {{ include('types_cadres/_form.html.twig') }}
+
+{% endblock %}

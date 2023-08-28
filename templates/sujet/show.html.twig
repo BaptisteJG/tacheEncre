@@ -1,0 +1,71 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{parent()}} | Sujet{% endblock %}
+
+{% block body %}
+    <h1>Sujet</h1>
+
+    <a href="{{ path('app_sujet_index') }}" class="btn btn-secondary">Retour à la liste</a>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ sujet.id }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ sujet.description }}</td>
+            </tr>
+            <tr>
+                <th>Commande</th>
+                <td>{{ sujet.commande.id }}</td>
+            </tr>
+            <tr>
+                <th>Nom du client</th>
+                <td>{{ sujet.commande.user.nom }}</td>
+            </tr>
+            <tr>
+                <th>Format du Sujet</th>
+                <td>{{ sujet.formatSujet }}</td>
+            </tr>
+            <tr>
+                <th>Taille de Baguette</th>
+                <td>{{ sujet.tailleBaguette }}</td>
+            </tr>
+            <tr>
+                <th>Baguette</th>
+                <td>{{ sujet.baguette.libelle }}</td>
+            </tr>
+            <tr>
+                <th>Taille du Passe-Partout</th>
+                <td>{{ sujet.taillePP }}</td>
+            </tr>
+            <tr>
+                <th>Passe-Partout</th>
+                <td>{{ sujet.passepartout.libelle }}</td>
+            </tr>
+            <tr>
+                <th>Taille du Verre</th>
+                <td>{{ sujet.tailleVerre }}</td>
+            </tr>
+            <tr>
+                <th>Verre</th>
+                <td>{{ sujet.verre.libelle }}</td>
+            </tr>
+            <tr>
+                <th>Montant Total</th>
+                <td>{{ sujet.montantTotal }}</td>
+            </tr>
+            {# <tr>
+                <th>Accompte</th>
+                <td>{{ sujet.accompte }}</td>
+            </tr> #}
+        </tbody>
+    </table>
+
+
+    <a href="{{ path('app_sujet_edit', {'id': sujet.id}) }}" class="text-success"><i class="fa-solid fa-pencil"></i></a>
+
+    {{ include('sujet/_delete_form.html.twig') }}
+{% endblock %}

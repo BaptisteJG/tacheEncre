@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }} | Ajouter un baguette{% endblock %}
+
+{% block body %}
+    <h1>Ajouter un baguette</h1>
+
+    <a href="{{ path('app_baguette_index') }}" class="btn btn-secondary">Retour à la liste</a>
+
+    {{ include('baguette/_form.html.twig') }}
+
+{% endblock %}

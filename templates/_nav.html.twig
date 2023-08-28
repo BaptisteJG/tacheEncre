@@ -1,0 +1,53 @@
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="{{ path('home') }}">Tache D'Encre</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                {% if app.user %} {# Connecté #}
+                    {% if is_granted('ROLE_ADMIN') %} {# Connecté + Admin #}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('app_ajout_commande') }}">Nouvelle commande</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Gestion
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="{{ path('app_adresse_index') }}">Adresse</a></li>
+                                <li><a class="dropdown-item" href="{{ path('app_baguette_index') }}">Baguette</a></li>
+                                <li><a class="dropdown-item" href="{{ path('app_codespostaux_index') }}">Code Postal</a></li>
+                                <li><a class="dropdown-item" href="{{ path('app_commande_index') }}">Commande</a></li>
+                                <li><a class="dropdown-item" href="{{ path('app_couleur_index') }}">Couleur</a></li>
+                                <li><a class="dropdown-item" href="{{ path('app_fournisseur_index') }}">Fournisseur</a></li>
+                                <li><a class="dropdown-item" href="{{ path('app_matiere_index') }}">Matière</a></li>
+                                <li><a class="dropdown-item" href="{{ path('app_passe_partout_index') }}">Passe Partout</a></li>
+                                <li><a class="dropdown-item" href="{{ path('app_sujet_index') }}">Sujet</a></li>
+                                <li><a class="dropdown-item" href="{{ path('app_verre_index') }}">Verre</a></li>
+                                <li><a class="dropdown-item" href="{{ path('app_ville_index') }}">Ville</a></li>
+                                <li><a class="dropdown-item" href="{{ path('app_types_cadres_index') }}">Type de cadre</a></li>
+                                <li><a class="dropdown-item" href="{{ path('app_user_index') }}">Utilisateurs</a></li>
+                            </ul>
+                        </li>
+                    {% else %} {# Connecté sans Admin #}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('app_commande_client') }}">Commande</a>
+                        </li>
+                    {% endif %}
+                    <liclass="nav-item">
+                        <a class="nav-link" href="{{ path('app_logout') }}">Deconnexion</a>
+                    </li>
+                {% else %} {# non connecté #}
+                    <liclass="nav-item">
+                        <a class="nav-link" href="{{ path('app_login') }}">Connexion</a>
+                    </li>
+                    <liclass="nav-item">
+                        <a class="nav-link" href="{{ path('app_register') }}">Inscription</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>

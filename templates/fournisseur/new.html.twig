@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{parent()}} | Ajouter un Fournisseur{% endblock %}
+
+{% block body %}
+    <h1>Ajouter un Fournisseur</h1>
+
+    <a href="{{ path('app_fournisseur_index') }}" class="btn btn-secondary">Retour à la liste</a>
+
+    {{ include('fournisseur/_form.html.twig') }}
+
+{% endblock %}

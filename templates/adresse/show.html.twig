@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{parent()}} | Adresse{% endblock %}
+
+{% block body %}
+    <h1>Adresse</h1>
+    <a href="{{ path('app_adresse_index') }}" class="btn btn-secondary">Retour à la liste</a>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ adresse.id }}</td>
+            </tr>
+            <tr>
+                <th>Num_rue</th>
+                <td>{{ adresse.numRue }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+
+    <a href="{{ path('app_adresse_edit', {'id': adresse.id}) }}">edit</a>
+
+    {{ include('adresse/_delete_form.html.twig') }}
+{% endblock %}

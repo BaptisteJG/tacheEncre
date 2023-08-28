@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }} | Liste des utilisateurs{% endblock %}
+
+{% block body %}
+    <h1>Liste des utilisateurs</h1>
+
+    <a href="{{ path('app_user_new') }}" class='btn btn-secondary'>Ajouter</a>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Email</th>
+                <th>Roles</th>
+                <th>Nom</th>
+                <th>Prénom</th>
+                <th>Tel</th>
+                <th></th>
+                <th></th>
+                <th class='text-end'>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for user in users %}
+            <tr>
+                <td>{{ user.id }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
+                <td>{{ user.nom }}</td>
+                <td>{{ user.prenom }}</td>
+                <td>{{ user.tel }}</td>
+                <td class='text-end'>
+                    <a href="{{ path('app_user_show', {'id': user.id}) }}" class="text-warning"><i class="fa-solid fa-info"></i></a>
+                </td>
+                <td class='text-end'>
+                    <a href="{{ path('app_user_edit', {'id': user.id}) }}" class="text-success"><i class="fa-solid fa-pencil"></i></a>
+                </td>
+                <td class='text-end'>
+                    {{ include('user/_delete_form.html.twig') }}
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="10">Pas de données</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

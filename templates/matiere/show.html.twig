@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{parent()}} | Matiere{% endblock %}
+
+{% block body %}
+    <h1>Matiere</h1>
+    
+    <a href="{{ path('app_matiere_index') }}">back to list</a>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ matiere.id }}</td>
+            </tr>
+            <tr>
+                <th>Libelle</th>
+                <td>{{ matiere.libelle }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+
+{% endblock %}

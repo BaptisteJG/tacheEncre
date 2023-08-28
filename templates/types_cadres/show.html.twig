@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{parent()}} | TypesCadres{% endblock %}
+
+{% block body %}
+    <h1>TypesCadres</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ types_cadre.id }}</td>
+            </tr>
+            <tr>
+                <th>Libelle</th>
+                <td>{{ types_cadre.libelle }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_types_cadres_index') }}">back to list</a>
+
+    <a href="{{ path('app_types_cadres_edit', {'id': types_cadre.id}) }}">edit</a>
+
+    {{ include('types_cadres/_delete_form.html.twig') }}
+{% endblock %}

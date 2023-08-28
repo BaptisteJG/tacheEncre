@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{parent()}} | Liste des Matieres{% endblock %}
+
+{% block body %}
+    <h1>Liste des Matieres</h1>
+
+    <a href="{{ path('app_matiere_new') }}" class="btn btn-secondary">Ajouter</a>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Libelle</th>
+                <th></th>
+                <th class='text-end'>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for matiere in matieres %}
+            <tr>
+                <td>{{ matiere.id }}</td>
+                <td>{{ matiere.libelle }}</td>
+                <td class='text-end'>
+                    <a href="{{ path('app_matiere_edit', {'id': matiere.id}) }}" class="text-success"><i class="fa-solid fa-pencil"></i></a>
+                </td>
+                <td class='text-end'>
+                    {{ include('matiere/_delete_form.html.twig') }}
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">Pas de données</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

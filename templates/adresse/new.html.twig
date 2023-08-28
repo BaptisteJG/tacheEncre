@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{parent()}} | Ajouter une adresse{% endblock %}
+
+{% block body %}
+    <h1>Create Ajouter une adresse</h1>
+
+    <a href="{{ path('app_adresse_index') }}" class="btn btn-secondary">Retour à la liste</a>
+
+    {{ include('adresse/_form.html.twig') }}
+
+{% endblock %}

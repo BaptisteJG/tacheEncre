@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{parent()}} | Liste des Sujets{% endblock %}
+
+{% block body %}
+    <h1>Liste des Sujets</h1>
+
+    <a href="{{ path('app_sujet_new') }}" class="btn btn-secondary">Ajouter</a>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Description</th>
+                <th>Format du Sujet</th>
+                <th>Taille de la Baguette</th>
+                <th>Taille du Passe-Partout</th>
+                <th>Taille du Verre</th>
+                <th>Montant Total</th>
+                <th></th>
+                <th></th>
+                <th class="text-end">actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for sujet in sujets %}
+            <tr>
+                <td>{{ sujet.id }}</td>
+                <td>{{ sujet.description }}</td>
+                <td>{{ sujet.formatSujet }}</td>
+                <td>{{ sujet.tailleBaguette }}</td>
+                <td>{{ sujet.taillePP }}</td>
+                <td>{{ sujet.tailleVerre }}</td>
+                <td>{{ sujet.montantTotal }}</td>
+                <td class="text-end">
+                    <a href="{{ path('app_sujet_show', {'id': sujet.id}) }}" class="text-warning"><i class="fa-solid fa-info"></i></a>
+                </td>
+                <td class="text-end">
+                    <a href="{{ path('app_sujet_edit', {'id': sujet.id}) }}" class="text-success"><i class="fa-solid fa-pencil"></i></a>
+                </td>
+                <td class="text-end">
+                    {{ include('sujet/_delete_form.html.twig') }}
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="10">Pas de données</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

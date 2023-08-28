@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{parent()}} | Liste des Fournisseurs{% endblock %}
+
+{% block body %}
+    <h1>Liste des Fournisseurs</h1>
+
+    <a href="{{ path('app_fournisseur_new') }}" class="btn btn-secondary">Ajouter</a>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nom</th>
+                <th>Tel</th>
+                <th>Email</th>
+                <th></th>
+                <th></th>
+                <th class="text-end">actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for fournisseur in fournisseurs %}
+            <tr>
+                <td>{{ fournisseur.id }}</td>
+                <td>{{ fournisseur.nom }}</td>
+                <td>{{ fournisseur.tel }}</td>
+                <td>{{ fournisseur.email }}</td>
+                <td class="text-end">
+                    <a href="{{ path('app_fournisseur_show', {'id': fournisseur.id}) }}" class="text-warning"><i class="fa-solid fa-info"></i></a>
+                </td>
+                <td class="text-end">
+                    <a href="{{ path('app_fournisseur_edit', {'id': fournisseur.id}) }}" class="text-success"><i class="fa-solid fa-pencil"></i></a>
+                </td>
+                <td class="text-end">
+                    {{ include('fournisseur/_delete_form.html.twig') }}
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">Pas de données</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

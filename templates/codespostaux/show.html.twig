@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{parent()}} | Codespostaux{% endblock %}
+
+{% block body %}
+    <h1>Codespostaux</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ codespostaux.id }}</td>
+            </tr>
+            <tr>
+                <th>Numero</th>
+                <td>{{ codespostaux.numero }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_codespostaux_index') }}" class="btn btn-secondary">back to list</a>
+
+    <a href="{{ path('app_codespostaux_edit', {'id': codespostaux.id}) }}">edit</a>
+
+    {{ include('codespostaux/_delete_form.html.twig') }}
+{% endblock %}

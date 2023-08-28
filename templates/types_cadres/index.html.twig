@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{parent()}} | Liste des Types de Cadres{% endblock %}
+
+{% block body %}
+    <h1>Liste des Types de Cadres</h1>
+
+    <a href="{{ path('app_types_cadres_new') }}" class="btn btn-secondary">Ajouter</a>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Libelle</th>
+                <th></th>
+                <th class='text-end'>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for types_cadre in types_cadres %}
+            <tr>
+                <td>{{ types_cadre.id }}</td>
+                <td>{{ types_cadre.libelle }}</td>
+                <td class='text-end'>
+                    <a href="{{ path('app_types_cadres_edit', {'id': types_cadre.id}) }}" class="text-success"><i class="fa-solid fa-pencil"></i></a>
+                </td>
+                <td class='text-end'>
+                    {{ include('types_cadres/_delete_form.html.twig') }}
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">Pas de données</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}
