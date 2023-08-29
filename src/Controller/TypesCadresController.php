@@ -6,6 +6,7 @@ use App\Entity\TypesCadres;
 use App\Form\TypesCadresType;
 use App\Repository\TypesCadresRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,10 +16,17 @@ use Symfony\Component\Routing\Annotation\Route;
 class TypesCadresController extends AbstractController
 {
     #[Route('/', name: 'app_types_cadres_index', methods: ['GET'])]
-    public function index(TypesCadresRepository $typesCadresRepository): Response
+    public function index(TypesCadresRepository $typesCadresRepository, PaginatorInterface $paginator, Request $request): Response
     {
+        $pagination = $paginator->paginate(
+            $typesCadresRepository->paginationQuery(),  
+            $request->query->get('page', 1),
+            10,
+        );
+
         return $this->render('types_cadres/index.html.twig', [
-            'types_cadres' => $typesCadresRepository->findAll(),
+            // 'types_cadres' => $typesCadresRepository->findAll(),
+            'pagination' => $pagination,
         ]);
     }
 

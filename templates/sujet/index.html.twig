@@ -23,7 +23,7 @@
             </tr>
         </thead>
         <tbody>
-        {% for sujet in sujets %}
+        {% for sujet in pagination %}
             <tr>
                 <td>{{ sujet.id }}</td>
                 <td>{{ sujet.description }}</td>
@@ -49,5 +49,7 @@
         {% endfor %}
         </tbody>
     </table>
+
+    {{ knp_pagination_render(pagination) }}
 
 {% endblock %}

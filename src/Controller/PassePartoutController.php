@@ -6,6 +6,7 @@ use App\Entity\PassePartout;
 use App\Form\PassePartoutType;
 use App\Repository\PassePartoutRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,10 +16,17 @@ use Symfony\Component\Routing\Annotation\Route;
 class PassePartoutController extends AbstractController
 {
     #[Route('/', name: 'app_passe_partout_index', methods: ['GET'])]
-    public function index(PassePartoutRepository $passePartoutRepository): Response
+    public function index(PassePartoutRepository $passePartoutRepository, PaginatorInterface $paginator, Request $request): Response
     {
+        $pagination = $paginator->paginate(
+            $passePartoutRepository->paginationQuery(),  
+            $request->query->get('page', 1),
+            10,
+        );
+
         return $this->render('passe_partout/index.html.twig', [
-            'passe_partouts' => $passePartoutRepository->findAll(),
+            // 'passe_partouts' => $passePartoutRepository->findAll(),
+            'pagination' => $pagination,
         ]);
     }
 

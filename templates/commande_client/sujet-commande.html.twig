@@ -9,7 +9,7 @@
 
     <h2>Etat de la commande : {{ commande.etatCommand.etatCommand }}</h2>
 
-    {% for sujet in sujets %}
+    {% for sujet in pagination %}
 
         <div class="card m-2" style="width: 40rem;">
             <ul class="list-group list-group-flush">
@@ -86,5 +86,7 @@
         </div>
 
     {% endfor %}
+
+    {{ knp_pagination_render(pagination) }}
 
 {% endblock %}

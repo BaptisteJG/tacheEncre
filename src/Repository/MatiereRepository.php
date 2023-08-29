@@ -21,6 +21,17 @@ class MatiereRepository extends ServiceEntityRepository
         parent::__construct($registry, Matiere::class);
     }
 
+    /**
+    * Query pour la pagination
+    */
+    public function paginationQuery()
+    {
+        return $this->createQueryBuilder('c')
+            ->orderBy('c.id', 'ASC')
+            ->getQuery()
+        ;
+    }
+
 //    /**
 //     * @return Matiere[] Returns an array of Matiere objects
 //     */

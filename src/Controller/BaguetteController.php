@@ -6,6 +6,7 @@ use App\Entity\Baguette;
 use App\Form\BaguetteType;
 use App\Repository\BaguetteRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,10 +16,17 @@ use Symfony\Component\Routing\Annotation\Route;
 class BaguetteController extends AbstractController
 {
     #[Route('/', name: 'app_baguette_index', methods: ['GET'])]
-    public function index(BaguetteRepository $baguetteRepository): Response
+    public function index(BaguetteRepository $baguetteRepository, PaginatorInterface $paginator, Request $request): Response
     {
+        $pagination = $paginator->paginate(
+            $baguetteRepository->paginationQuery(),  
+            $request->query->get('page', 1),
+            10,
+        );
+
         return $this->render('baguette/index.html.twig', [
-            'baguettes' => $baguetteRepository->findAll(),
+            // 'baguettes' => $baguetteRepository->findAll(),
+            'pagination' => $pagination,
         ]);
     }
 

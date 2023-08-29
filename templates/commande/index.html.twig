@@ -21,7 +21,7 @@
             </tr>
         </thead>
         <tbody>
-        {% for commande in commandes %}
+        {% for commande in pagination %}
             <tr>
                 <td>{{ commande.id }}</td>
                 <td>{{ commande.date ? commande.date|date('d-m-Y') : '' }}</td>
@@ -45,5 +45,7 @@
         {% endfor %}
         </tbody>
     </table>
+
+    {{ knp_pagination_render(pagination) }}
 
 {% endblock %}

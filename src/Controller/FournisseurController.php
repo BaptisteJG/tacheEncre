@@ -8,6 +8,7 @@ use App\Entity\Codespostaux;
 use App\Form\FournisseurType;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\FournisseurRepository;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -17,10 +18,17 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class FournisseurController extends AbstractController
 {
     #[Route('/', name: 'app_fournisseur_index', methods: ['GET'])]
-    public function index(FournisseurRepository $fournisseurRepository): Response
+    public function index(FournisseurRepository $fournisseurRepository, PaginatorInterface $paginator, Request $request): Response
     {
+        $pagination = $paginator->paginate(
+            $fournisseurRepository->paginationQuery(),  
+            $request->query->get('page', 1),
+            10,
+        );
+
         return $this->render('fournisseur/index.html.twig', [
-            'fournisseurs' => $fournisseurRepository->findAll(),
+            // 'fournisseurs' => $fournisseurRepository->findAll(),
+            'pagination' => $pagination,
         ]);
     }
 

@@ -6,6 +6,7 @@ use App\Entity\Matiere;
 use App\Form\MatiereType;
 use App\Repository\MatiereRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,10 +16,17 @@ use Symfony\Component\Routing\Annotation\Route;
 class MatiereController extends AbstractController
 {
     #[Route('/', name: 'app_matiere_index', methods: ['GET'])]
-    public function index(MatiereRepository $matiereRepository): Response
+    public function index(MatiereRepository $matiereRepository, PaginatorInterface $paginator, Request $request): Response
     {
+        $pagination = $paginator->paginate(
+            $matiereRepository->paginationQuery(),  
+            $request->query->get('page', 1),
+            10,
+        );
+
         return $this->render('matiere/index.html.twig', [
-            'matieres' => $matiereRepository->findAll(),
+            // 'matieres' => $matiereRepository->findAll(),
+            'pagination' => $pagination,
         ]);
     }
 

@@ -21,6 +21,17 @@ class TypesCadresRepository extends ServiceEntityRepository
         parent::__construct($registry, TypesCadres::class);
     }
 
+    /**
+    * Query pour la pagination
+    */
+    public function paginationQuery()
+    {
+        return $this->createQueryBuilder('c')
+            ->orderBy('c.id', 'ASC')
+            ->getQuery()
+        ;
+    }
+
 //    /**
 //     * @return TypesCadres[] Returns an array of TypesCadres objects
 //     */

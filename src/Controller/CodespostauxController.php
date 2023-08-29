@@ -4,21 +4,29 @@ namespace App\Controller;
 
 use App\Entity\Codespostaux;
 use App\Form\CodespostauxType;
-use App\Repository\CodespostauxRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Repository\CodespostauxRepository;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 #[Route('/admin/codespostaux')]
 class CodespostauxController extends AbstractController
 {
     #[Route('/', name: 'app_codespostaux_index', methods: ['GET'])]
-    public function index(CodespostauxRepository $codespostauxRepository): Response
+    public function index(CodespostauxRepository $codespostauxRepository, PaginatorInterface $paginator, Request $request): Response
     {
+        $pagination = $paginator->paginate(
+            $codespostauxRepository->paginationQuery(),  
+            $request->query->get('page', 1),
+            10,
+        );
+
         return $this->render('codespostaux/index.html.twig', [
-            'codespostauxes' => $codespostauxRepository->findAll(),
+            // 'codespostauxes' => $codespostauxRepository->findAll(),
+            'pagination' => $pagination,
         ]);
     }
 

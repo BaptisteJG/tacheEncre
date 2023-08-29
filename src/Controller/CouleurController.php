@@ -6,6 +6,7 @@ use App\Entity\Couleur;
 use App\Form\CouleurType;
 use App\Repository\CouleurRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,10 +16,17 @@ use Symfony\Component\Routing\Annotation\Route;
 class CouleurController extends AbstractController
 {
     #[Route('/', name: 'app_couleur_index', methods: ['GET'])]
-    public function index(CouleurRepository $couleurRepository): Response
+    public function index(CouleurRepository $couleurRepository, PaginatorInterface $paginator, Request $request): Response
     {
+        $pagination = $paginator->paginate(
+            $couleurRepository->paginationQuery(),  
+            $request->query->get('page', 1),
+            10,
+        );
+
         return $this->render('couleur/index.html.twig', [
-            'couleurs' => $couleurRepository->findAll(),
+            // 'couleurs' => $couleurRepository->findAll(),
+            'pagination' => $pagination,
         ]);
     }
 

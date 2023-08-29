@@ -34,7 +34,6 @@ class CommandeType extends AbstractType
             ->add('etatCommand', EntityType::class, [
                 'class' => EtatCommand::class,
                 'choice_label' => 'etatCommand',
-                'placeholder' => 'Selectionner l\'état de la commande',
                 'expanded' => true,
                 'label' => 'Etat de la commande',
                 'constraints' => [
@@ -42,6 +41,7 @@ class CommandeType extends AbstractType
                         'message' => 'Veuillez saisir un état'
                     ])
                     ],
+                // 'data' => $options["default_etatCommand"],   // Case cocher par défaut
             ])
         ;
     }

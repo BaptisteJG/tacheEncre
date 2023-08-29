@@ -19,7 +19,7 @@
             </tr>
         </thead>
         <tbody>
-        {% for adresse in adresses %}
+        {% for adresse in pagination %}
             <tr>
                 <td>{{ adresse.id }}</td>
                 <td>{{ adresse.numRue }}</td>
@@ -39,5 +39,7 @@
         {% endfor %}
         </tbody>
     </table>
+
+    {{ knp_pagination_render(pagination) }}
 
 {% endblock %}

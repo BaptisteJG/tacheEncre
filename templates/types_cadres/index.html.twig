@@ -17,7 +17,7 @@
             </tr>
         </thead>
         <tbody>
-        {% for types_cadre in types_cadres %}
+        {% for types_cadre in pagination %}
             <tr>
                 <td>{{ types_cadre.id }}</td>
                 <td>{{ types_cadre.libelle }}</td>
@@ -35,5 +35,7 @@
         {% endfor %}
         </tbody>
     </table>
+
+    {{ knp_pagination_render(pagination) }}
 
 {% endblock %}

@@ -21,6 +21,17 @@ class CodespostauxRepository extends ServiceEntityRepository
         parent::__construct($registry, Codespostaux::class);
     }
 
+    /**
+    * Query pour la pagination
+    */
+    public function paginationQuery()
+    {
+        return $this->createQueryBuilder('c')
+            ->orderBy('c.id', 'ASC')
+            ->getQuery()
+        ;
+    }
+
 //    /**
 //     * @return Codespostaux[] Returns an array of Codespostaux objects
 //     */

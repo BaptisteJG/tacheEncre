@@ -21,6 +21,17 @@ class CouleurRepository extends ServiceEntityRepository
         parent::__construct($registry, Couleur::class);
     }
 
+    /**
+    * Query pour la pagination
+    */
+    public function paginationQuery()
+    {
+        return $this->createQueryBuilder('c')
+            ->orderBy('c.id', 'ASC')
+            ->getQuery()
+        ;
+    }
+
 //    /**
 //     * @return Couleur[] Returns an array of Couleur objects
 //     */

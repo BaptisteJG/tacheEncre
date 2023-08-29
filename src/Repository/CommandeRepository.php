@@ -21,20 +21,32 @@ class CommandeRepository extends ServiceEntityRepository
         parent::__construct($registry, Commande::class);
     }
 
-//    /**
-//     * @return Commande[] Returns an array of Commande objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('c')
-//            ->andWhere('c.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('c.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    /**
+    * Query pour la pagination de CommandeClient
+    */
+    public function paginationClientQuery($parameters)
+    {
+        $queryBuilder = $this->createQueryBuilder('c')
+        ->orderBy('c.id', 'ASC');
+
+        foreach ($parameters as $key => $value) {
+            $queryBuilder->andWhere("c.$key = :$key")
+                ->setParameter($key, $value);
+        }
+
+        return $queryBuilder->getQuery();
+    }
+
+    /**
+    * Query pour la pagination
+    */
+    public function paginationQuery()
+    {
+        return $this->createQueryBuilder('c')
+            ->orderBy('c.id', 'ASC')
+            ->getQuery()
+        ;
+    }
 
 //    public function findOneBySomeField($value): ?Commande
 //    {

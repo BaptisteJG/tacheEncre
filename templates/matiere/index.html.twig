@@ -17,7 +17,7 @@
             </tr>
         </thead>
         <tbody>
-        {% for matiere in matieres %}
+        {% for matiere in pagination %}
             <tr>
                 <td>{{ matiere.id }}</td>
                 <td>{{ matiere.libelle }}</td>
@@ -35,5 +35,7 @@
         {% endfor %}
         </tbody>
     </table>
+
+    {{ knp_pagination_render(pagination) }}
 
 {% endblock %}

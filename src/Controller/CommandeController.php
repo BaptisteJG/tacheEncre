@@ -8,6 +8,8 @@ use App\Form\CommandeType;
 use App\Repository\UserRepository;
 use App\Repository\CommandeRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Repository\EtatCommandRepository;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -18,19 +20,32 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 class CommandeController extends AbstractController
 {
     #[Route('/', name: 'app_commande_index', methods: ['GET'])]
-    public function index(CommandeRepository $commandeRepository): Response
+    public function index(CommandeRepository $commandeRepository, PaginatorInterface $paginator, Request $request): Response
     {
+        $pagination = $paginator->paginate(
+            $commandeRepository->paginationQuery(),  
+            $request->query->get('page', 1),
+            10,
+        );
+
         return $this->render('commande/index.html.twig', [
-            'commandes' => $commandeRepository->findAll(),
+            // 'commandes' => $commandeRepository->findAll(),
+            'pagination' => $pagination,
         ]);
     }
 
     #[Route('/ajouter', name: 'app_commande_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager, UserRepository $userRepository, UserPasswordHasherInterface $userPasswordHasherInterface): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, UserRepository $userRepository, UserPasswordHasherInterface $userPasswordHasherInterface, EtatCommandRepository $etatCommandRepository): Response
     {
         $commande = new Commande();
-        $form = $this->createForm(CommandeType::class, $commande);
-        // $form->remove('plainPassword');            // Supprimer le champ du formulaire
+
+        // On veut que la commande soit par défaut sur En préparation
+        // $defaultEtatCommand = $etatCommandRepository->findOneBy(["EtatCommand" => "En Préparation"]);
+
+        $form = $this->createForm(CommandeType::class, $commande, [
+            // 'default_etatCommand' => $defaultEtatCommand,
+        ]);
+        
         $form->handleRequest($request);
 
 

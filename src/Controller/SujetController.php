@@ -8,6 +8,7 @@ use App\Form\SujetType;
 use App\Entity\Codespostaux;
 use App\Repository\SujetRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -17,10 +18,17 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class SujetController extends AbstractController
 {
     #[Route('/', name: 'app_sujet_index', methods: ['GET'])]
-    public function index(SujetRepository $sujetRepository): Response
+    public function index(SujetRepository $sujetRepository, PaginatorInterface $paginator, Request $request): Response
     {
+        $pagination = $paginator->paginate(
+            $sujetRepository->paginationQuery(),  
+            $request->query->get('page', 1),
+            10,
+        );
+
         return $this->render('sujet/index.html.twig', [
-            'sujets' => $sujetRepository->findAll(),
+            // 'sujets' => $sujetRepository->findAll(),
+            'pagination' => $pagination,
         ]);
     }
 

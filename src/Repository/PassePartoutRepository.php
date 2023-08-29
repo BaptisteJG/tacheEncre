@@ -21,6 +21,17 @@ class PassePartoutRepository extends ServiceEntityRepository
         parent::__construct($registry, PassePartout::class);
     }
 
+    /**
+    * Query pour la pagination
+    */
+    public function paginationQuery()
+    {
+        return $this->createQueryBuilder('c')
+            ->orderBy('c.id', 'ASC')
+            ->getQuery()
+        ;
+    }
+
 //    /**
 //     * @return PassePartout[] Returns an array of PassePartout objects
 //     */

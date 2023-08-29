@@ -8,6 +8,7 @@ use App\Entity\Codespostaux;
 use App\Form\AdresseType;
 use App\Repository\AdresseRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -17,10 +18,17 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class AdresseController extends AbstractController
 {
     #[Route('/', name: 'app_adresse_index', methods: ['GET'])]
-    public function index(AdresseRepository $adresseRepository): Response
+    public function index(AdresseRepository $adresseRepository, PaginatorInterface $paginator, Request $request): Response
     {
+        $pagination = $paginator->paginate(
+            $adresseRepository->paginationQuery(),  
+            $request->query->get('page', 1),
+            10,
+        );
+
         return $this->render('adresse/index.html.twig', [
-            'adresses' => $adresseRepository->findAll(),
+            // 'adresses' => $adresseRepository->findAll(),
+            'pagination' => $pagination,
         ]);
     }
 

@@ -21,6 +21,33 @@ class SujetRepository extends ServiceEntityRepository
         parent::__construct($registry, Sujet::class);
     }
 
+    /**
+    * Query pour la pagination
+    */
+    public function paginationQuery()
+    {
+        return $this->createQueryBuilder('c')
+            ->orderBy('c.id', 'ASC')
+            ->getQuery()
+        ;
+    }
+
+        /**
+    * Query pour la pagination de CommandeClient
+    */
+    public function paginationClientQuery($parameters)
+    {
+        $queryBuilder = $this->createQueryBuilder('c')
+        ->orderBy('c.id', 'ASC');
+
+        foreach ($parameters as $key => $value) {
+            $queryBuilder->andWhere("c.$key = :$key")
+                ->setParameter($key, $value);
+        }
+
+        return $queryBuilder->getQuery();
+    }
+
 //    /**
 //     * @return Sujet[] Returns an array of Sujet objects
 //     */

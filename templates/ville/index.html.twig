@@ -17,7 +17,7 @@
             </tr>
         </thead>
         <tbody>
-        {% for ville in villes %}
+        {% for ville in pagination %}
             <tr>
                 <td>{{ ville.id }}</td>
                 <td>{{ ville.libelle }}</td>
@@ -35,5 +35,7 @@
         {% endfor %}
         </tbody>
     </table>
+
+    {{ knp_pagination_render(pagination) }}
 
 {% endblock %}

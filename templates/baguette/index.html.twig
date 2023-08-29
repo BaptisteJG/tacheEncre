@@ -21,7 +21,7 @@
             </tr>
         </thead>
         <tbody>
-        {% for baguette in baguettes %}
+        {% for baguette in pagination %}
             <tr>
                 <td>{{ baguette.id }}</td>
                 <td>{{ baguette.libelle }}</td>
@@ -47,5 +47,7 @@
         {% endfor %}
         </tbody>
     </table>
+
+    {{ knp_pagination_render(pagination) }}
 
 {% endblock %}
