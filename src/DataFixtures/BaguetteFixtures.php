@@ -26,6 +26,30 @@ class BaguetteFixtures extends Fixture implements DependentFixtureInterface
         $manager->persist($baguette);
         $this->addReference(self::REF0101, $baguette);
 
+        $baguette = new Baguette();
+        $baguette -> setLibelle("REF0102");
+        $baguette -> setTypesCadres($this->getReference(TypesCadresFixtures::PLAT));
+        $baguette -> setCouleur($this->getReference(CouleurFixtures::NOIR));
+        $baguette -> addMatiere($this->getReference(MatiereFixtures::CHENE));
+        $baguette -> setFournisseur($this->getReference(FournisseurFixtures::SERVICE));
+        $manager->persist($baguette);
+
+        $baguette = new Baguette();
+        $baguette -> setLibelle("REF0103");
+        $baguette -> setTypesCadres($this->getReference(TypesCadresFixtures::PLAT));
+        $baguette -> setCouleur($this->getReference(CouleurFixtures::NOIR));
+        $baguette -> addMatiere($this->getReference(MatiereFixtures::CHENE));
+        $baguette -> setFournisseur($this->getReference(FournisseurFixtures::SERVICE));
+        $manager->persist($baguette);
+
+        $baguette = new Baguette();
+        $baguette -> setLibelle("REF0104");
+        $baguette -> setTypesCadres($this->getReference(TypesCadresFixtures::PLAT));
+        $baguette -> setCouleur($this->getReference(CouleurFixtures::NOIR));
+        $baguette -> addMatiere($this->getReference(MatiereFixtures::CHENE));
+        $baguette -> setFournisseur($this->getReference(FournisseurFixtures::SERVICE));
+        $manager->persist($baguette);
+
         $manager->flush();
     }
 

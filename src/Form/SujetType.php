@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use App\Entity\Baguette;
 use App\Entity\Sujet;
 use App\Entity\Commande;
 use Symfony\Component\Form\AbstractType;
@@ -23,7 +24,19 @@ class SujetType extends AbstractType
                     ])
                 ]
             ])
-            ->add('baguette')
+            ->add('baguette'
+            // , EntityType::class, [
+            //     'class' => Baguette::class,
+            //     'choice_label' => 'libelle',
+            //     'label' => 'Baguette',
+            //     'attr' => [
+            //         'class' => 'select-2',
+            //         'placeholder' => 'Référence de la baguette'
+            //     ],
+            //     'expanded' => false,
+            //     'multiple' => false,
+            // ]
+            )
             ->add('tailleBaguette')
             ->add('passePartout')
             ->add('taillePP', null, [
