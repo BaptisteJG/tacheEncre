@@ -1,20 +1,26 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello FrontController!{% endblock %}
+{% block title %}{{parent()}} | Accueil{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+    <h1 class=""><img src="{{ asset('/images/LogoTE.png') }}" alt="logo de l'entreprise" class="img-fluid"></h1>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'D:/bapti/Documents/Nextformation/Projet de fin de formation/tacheEncre/src/Controller/FrontController.php'|file_link(0) }}">src/Controller/FrontController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'D:/bapti/Documents/Nextformation/Projet de fin de formation/tacheEncre/templates/front/index.html.twig'|file_link(0) }}">templates/front/index.html.twig</a></code></li>
-    </ul>
-</div>
+    <div class="container-lg">
+        <div class="row align-items-center">
+            <div class="col-lg-4">
+                <img src="{{ asset('/images/Boutique.jpg') }}" alt="photo de l'atelier" class="img-fluid">
+            </div>
+            <div class="col-lg-4">
+                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores ut delectus sequi illo similique ducimus, eveniet nihil labore. Provident voluptas obcaecati voluptate praesentium sapiente corrupti laboriosam deleniti maxime quos fugit!
+        Similique, mollitia quidem ullam magni voluptatibus totam illum, a earum reiciendis provident quos, ab saepe at praesentium vero. Sed dolores, in nesciunt magnam itaque quas voluptas aliquam consectetur aut deleniti.
+        Earum impedit fugiat magni nobis cum fugit repudiandae quae exercitationem accusantium soluta laudantium enim nesciunt qui ad voluptate sed perspiciatis reiciendis sunt ducimus, quam harum doloremque voluptatem ipsa rerum. Odit!</p>
+            </div>
+            <div class="col-lg-4">
+                <img src="{{ asset('/images/Encacreuse.jpg') }}" alt="photo de l'encadreuse" class="img-fluid">
+            </div>
+        </div>
+    </div>
+
+
 {% endblock %}
