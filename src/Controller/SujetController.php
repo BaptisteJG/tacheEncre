@@ -3,9 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Sujet;
-use App\Entity\Ville;
 use App\Form\SujetType;
-use App\Entity\Codespostaux;
+use App\Form\SearchType;
+use App\Model\SearchData;
 use App\Repository\SujetRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
@@ -26,8 +26,26 @@ class SujetController extends AbstractController
             10,
         );
 
+        // Partie pour la recherche de commande par nom
+        $searchData = new SearchData();
+        $form = $this->createForm(SearchType::class, $searchData);
+
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()) {
+            $searchData->page = $request->query->getInt('page', 1);
+            $sujets = $sujetRepository->findBySearch($searchData);
+
+            $pagination = $paginator->paginate($sujets, $searchData->page, 10);
+
+            return $this->render('sujet/index.html.twig', [
+                'form' => $form->createView(),
+                'pagination' => $pagination,
+            ]);
+        }
+
         return $this->render('sujet/index.html.twig', [
             // 'sujets' => $sujetRepository->findAll(),
+            'form' => $form->createView(),
             'pagination' => $pagination,
         ]);
     }

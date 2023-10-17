@@ -5,6 +5,8 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Entity\Commande;
 use App\Form\CommandeType;
+use App\Form\SearchType;
+use App\Model\SearchData;
 use App\Repository\UserRepository;
 use App\Repository\CommandeRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -28,8 +30,26 @@ class CommandeController extends AbstractController
             10,
         );
 
+        // Partie pour la recherche de commande par nom
+        $searchData = new SearchData();
+        $form = $this->createForm(SearchType::class, $searchData);
+
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()) {
+            $searchData->page = $request->query->getInt('page', 1);
+            $commandes = $commandeRepository->findBySearch($searchData);
+
+            $pagination = $paginator->paginate($commandes, $searchData->page, 10);
+
+            return $this->render('commande/index.html.twig', [
+                'form' => $form->createView(),
+                'pagination' => $pagination,
+            ]);
+        }
+
         return $this->render('commande/index.html.twig', [
             // 'commandes' => $commandeRepository->findAll(),
+            'form' => $form->createView(),
             'pagination' => $pagination,
         ]);
     }

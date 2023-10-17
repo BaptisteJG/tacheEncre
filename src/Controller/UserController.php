@@ -2,10 +2,12 @@
 
 namespace App\Controller;
 
-use App\Entity\Adresse;
 use App\Entity\User;
 use App\Entity\Ville;
 use App\Form\UserType;
+use App\Entity\Adresse;
+use App\Form\SearchType;
+use App\Model\SearchData;
 use App\Entity\Codespostaux;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -28,8 +30,26 @@ class UserController extends AbstractController
             10,
         );
 
+        // Partie pour la recherche de commande par nom
+        $searchData = new SearchData();
+        $form = $this->createForm(SearchType::class, $searchData);
+
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()) {
+            $searchData->page = $request->query->getInt('page', 1);
+            $users = $userRepository->findBySearch($searchData);
+
+            $pagination = $paginator->paginate($users, $searchData->page, 10);
+
+            return $this->render('user/index.html.twig', [
+                'form' => $form->createView(),
+                'pagination' => $pagination,
+            ]);
+        }
+
         return $this->render('user/index.html.twig', [
             // 'users' => $userRepository->findAll(),
+            'form' => $form->createView(),
             'pagination' => $pagination,
         ]);
     }

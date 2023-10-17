@@ -5,6 +5,10 @@
 {% block body %}
     <h1>Liste des Sujets</h1>
 
+    {% include "components/_search_data.html.twig" with {
+        form: form
+    } only %}
+
     <a href="{{ path('app_sujet_new') }}" class="btn btn-secondary mb-2">Ajouter</a>
 
     <table class="table">

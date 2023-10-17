@@ -5,6 +5,10 @@
 {% block body %}
     <h1>Liste des utilisateurs</h1>
 
+    {% include "components/_search_data.html.twig" with {
+        form: form
+    } only %}
+
     <a href="{{ path('app_user_new') }}" class='btn btn-secondary'>Ajouter</a>
 
     <table class="table">

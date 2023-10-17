@@ -3,11 +3,12 @@
 namespace App\Repository;
 
 use App\Entity\User;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use App\Model\SearchData;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
-use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
 
 /**
  * @extends ServiceEntityRepository<User>
@@ -73,4 +74,35 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
 //            ->getOneOrNullResult()
 //        ;
 //    }
+
+    /**
+     * Affichage des valeur de la recherche
+     */
+    public function findBySearch(SearchData $searchData)
+    {
+        $queryBuilder = $this->createQueryBuilder('u')
+            ->orderBy('u.id', 'ASC');
+
+        if(!empty($searchData->q)) {
+            // Rechercher des commandes où le nom de l'utilisateur ressemble à la valeur de recherche
+            $queryBuilder
+                ->andWhere('u.nom LIKE :q')
+                ->orWhere('u.email LIKE :q')
+                ->setParameter('q', "%{$searchData->q}%");
+        }
+
+        $query = $queryBuilder->getQuery();
+
+        // Obtenez les résultats non paginés
+        $results = $query->getResult();
+
+        // Pagination manuelle
+        $page = $searchData->page;
+        // Nombre d'éléments par page
+        $perPage = 10; 
+        $offset = ($page - 1) * $perPage;
+        $paginatedResults = array_slice($results, $offset, $perPage);
+
+        return $paginatedResults;
+    }
 }

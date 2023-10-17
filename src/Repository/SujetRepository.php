@@ -3,8 +3,9 @@
 namespace App\Repository;
 
 use App\Entity\Sujet;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use App\Model\SearchData;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @extends ServiceEntityRepository<Sujet>
@@ -72,4 +73,34 @@ class SujetRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+    /**
+     * Affichage des valeur de la recherche
+     */
+    public function findBySearch(SearchData $searchData)
+    {
+        $queryBuilder = $this->createQueryBuilder('s')
+            ->leftJoin('s.commande', 'c') 
+            ->orderBy('s.id', 'ASC');
+
+        if(!empty($searchData->q)) {
+            // Rechercher des commandes où le nom de l'utilisateur ressemble à la valeur de recherche
+            $queryBuilder
+                ->andWhere('c.id LIKE :q')
+                ->setParameter('q', "%{$searchData->q}%");
+        }
+
+        $query = $queryBuilder->getQuery();
+
+        // Obtenez les résultats non paginés
+        $results = $query->getResult();
+
+        // Pagination manuelle
+        $page = $searchData->page;
+        // Nombre d'éléments par page
+        $perPage = 10; 
+        $offset = ($page - 1) * $perPage;
+        $paginatedResults = array_slice($results, $offset, $perPage);
+
+        return $paginatedResults;
+    }
 }

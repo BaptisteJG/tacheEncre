@@ -5,6 +5,10 @@
 {% block body %}
     <h1>Commande</h1>
 
+    {% include "components/_search_data.html.twig" with {
+        form: form
+    } only %}
+
     <a href="{{ path('app_commande_new') }}" class="btn btn-secondary mb-2">Ajouter</a>
 
     <table class="table">

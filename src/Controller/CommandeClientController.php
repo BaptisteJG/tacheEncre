@@ -34,7 +34,7 @@ class CommandeClientController extends AbstractController
         ]);
     }
 
-    #[Route('/sujet/commande{id}', name: 'commande_sujet_client', methods: ['GET'])]
+    #[Route('/sujet/commande/{id}', name: 'commande_sujet_client', methods: ['GET'])]
     public function sujet(Commande $commande, SujetRepository $sujetRepository, PaginatorInterface $paginator, Request $request): Response
     {
         $pagination = $paginator->paginate(
