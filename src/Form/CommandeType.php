@@ -21,7 +21,7 @@ class CommandeType extends AbstractType
                 'html5' => false,
                 'attr' => [
                     'class' => 'js-datepicker',
-                    'placeholder' => 'JJ/MM/AAAA',
+                    'placeholder' => 'JJ-MM-AAAA',
                 ],
                 'constraints' => [
                     new NotBlank([
@@ -32,6 +32,7 @@ class CommandeType extends AbstractType
                 
             ])
             ->add('user', UserType::class, [
+                'label' => false,
                 'mapped' => false,
                 'isCommand' => true,    // Option pour ne pas faire apparaitre le mot de passe ici
             ])

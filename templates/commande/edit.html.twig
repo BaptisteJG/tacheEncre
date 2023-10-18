@@ -2,6 +2,10 @@
 
 {% block title %}{{parent()}} | Modifier la Commande{% endblock %}
 
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('/css/librairy/jquery-ui.css') }}">
+{% endblock %}
+
 {% block body %}
     <h1>Modifier la Commande</h1>
 
@@ -9,4 +13,9 @@
 
     {{ include('commande/_form.html.twig', {'button_label': 'Modifier'}) }}
 
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('/js/commandeDate.js') }}"></script>
+    <script src="{{ asset('/js/librairy/jquery-ui.js') }}"></script>
 {% endblock %}

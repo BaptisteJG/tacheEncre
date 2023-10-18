@@ -66,13 +66,15 @@ class CommandeRepository extends ServiceEntityRepository
     {
         $queryBuilder = $this->createQueryBuilder('c')
             // Rejoindre la table des utilisateurs (u) liée à la commande (c)
-            ->leftJoin('c.user', 'u') 
+            ->leftJoin('c.user', 'u')
+            // ->leftJoin('c.etatCommand', 'e') 
             ->orderBy('c.id', 'ASC');
 
         if(!empty($searchData->q)) {
             // Rechercher des commandes où le nom de l'utilisateur ressemble à la valeur de recherche
             $queryBuilder
                 ->andWhere('u.nom LIKE :q')
+                // ->orWhere('e.etatCommand LIKE :q')
                 ->setParameter('q', "%{$searchData->q}%");
         }
 

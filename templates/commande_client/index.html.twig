@@ -11,7 +11,7 @@
             <ul class="list-group list-group-flush">
                 <li class="list-group-item">Commande numéro {{ commande.id }}</li>
                 <li class="list-group-item">{{ commande.date ? commande.date|date('d-m-Y') : '' }}</li>
-                <li class="list-group-item">Nombre de sujet : {# {{ length | commande.sujet }}#}</li>
+                <li class="list-group-item">Nombre de sujet : {{ commande.sujets|length }}</li>
                 <li class="list-group-item">Etat de la commande : {{ commande.etatCommand.etatCommand }}</li>
                 <li class="list-group-item">Prix de la commande : {{ commande.prix }} €</li> 
                 <li class="list-group-item"><a href="{{ path('commande_sujet_client', {'id': commande.id}) }}" class="btn btn-warning"><i class="fa-solid fa-magnifying-glass"></i></a></li> 

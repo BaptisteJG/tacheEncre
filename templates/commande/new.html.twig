@@ -2,6 +2,10 @@
 
 {% block title %}{{parent()}} | Ajouter une Commande{% endblock %}
 
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('/css/librairy/jquery-ui.css') }}">
+{% endblock %}
+
 {% block body %}
     <h1>Ajouter une Commande</h1>
 
@@ -12,5 +16,6 @@
 {% endblock %}
 
 {% block javascripts %}
-    <script src="{{ asset('/js/commande.js') }}"></script>
+    <script src="{{ asset('/js/commandeDate.js') }}"></script>
+    <script src="{{ asset('/js/librairy/jquery-ui.js') }}"></script>
 {% endblock %}

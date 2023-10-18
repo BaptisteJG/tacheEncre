@@ -2,9 +2,19 @@
 
 {% block title %}{{ parent()}} | Nouvelle commande{% endblock %}
 
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('/css/librairy/jquery-ui.css') }}">
+{% endblock %}
+
 {% block body %}
     <h1>Commande</h1>
 
     {{ include('ajout_commande/_form.html.twig') }}
 
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('/js/commandeDate.js') }}"></script>
+    <script src="{{ asset('/js/commandePrix.js') }}"></script>
+    <script src="{{ asset('/js/librairy/jquery-ui.js') }}"></script>
 {% endblock %}

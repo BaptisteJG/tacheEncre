@@ -11,18 +11,22 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 
 class AjoutCommandeType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('date', null, [
-                'label' => 'Date de la commande',
-                'format' => 'ddMMyyyy',
-                'placeholder' => [
-                    'year' => 'Année', 'month' => 'Moi', 'day' => 'Jour',
+            ->add('date', DateType::class, [
+                'widget' => 'single_text',
+                'html5' => false,
+                'attr' => [
+                    'class' => 'js-datepicker',
+                    'placeholder' => 'JJ-MM-AAAA',
                 ],
+                'label' => 'Date de la commande',
+                'format' => 'dd-MM-yyyy',
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Veuillez saisir une date'
@@ -30,6 +34,7 @@ class AjoutCommandeType extends AbstractType
                 ]
             ])
             ->add('user', UserType::class, [
+                'label' => false,
                 'isCommand' => true,    // Option pour ne pas faire apparaitre le mot de passe ici
             ])
             ->add('prix')

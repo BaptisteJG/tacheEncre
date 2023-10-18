@@ -5,12 +5,12 @@
 {% block body %}
     <h1>Commande</h1>
 
-    <a href="{{ path('app_commande_index') }}" class="btn btn-secondary">Retour à la liste</a>
+    <a href="{{ path('app_commande_index') }}" class="btn btn-secondary mb-2">Retour à la liste</a>
 
     <table class="table">
         <tbody>
             <tr>
-                <th>Id</th>
+                <th>Commande numéro</th>
                 <td>{{ commande.id }}</td>
             </tr>
             <tr>
@@ -23,7 +23,13 @@
             </tr>
             <tr>
                 <th>Prénom du client</th>
-                <td>{{ commande.user.prenom }}</td>
+                <td>
+                    {% if commande.user.prenom %}
+                        {{ commande.user.prenom }}
+                    {% else %}
+                        <span class="text-danger fst-italic">N.R</span>
+                    {% endif %}
+                </td>
             </tr>
             <tr>
                 <th>Email du client</th>
@@ -35,7 +41,13 @@
             </tr>
             <tr>
                 <th>Adresse du client</th>
-                <td>{{ commande.user.adresse }}, {{ commande.user.adresse.codespostaux }} {{ commande.user.adresse.ville }}</td>
+                <td>
+                    {% if commande.user.adresse %}
+                        {{ commande.user.adresse }}, {{ commande.user.adresse.codespostaux }} {{ commande.user.adresse.ville }}
+                    {% else %}
+                        <span class="text-danger fst-italic">N.R</span>
+                    {% endif %}
+                </td>
             </tr>
                 <th>Etat de la Commande</th>
                 <td>{{ commande.etatCommand.etatCommand }}</td>
@@ -46,10 +58,80 @@
             </tr>
             <tr>
                 <th>Nombre de sujet</th>
-                <td></td>
+                <td>{{ commande.sujets|length }}</td>
             </tr>
-
         </tbody>
     </table>
+
+    <div class="container">
+        <div class="row">
+            {% for sujet in commande.sujets %}
+                <div class="col-6">
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <th>Sujet numéro</th>
+                                <td>{{ sujet.id }}</td>
+                            </tr>
+                            <tr>
+                                <th>Description</th>
+                                <td>{{ sujet.description }}</td>
+                            </tr>
+                            <tr>
+                                <th>Format du Sujet</th>
+                                <td>{{ sujet.formatSujet }}</td>
+                            </tr>
+                            <tr>
+                                <th>Taille de Baguette</th>
+                                <td>{{ sujet.tailleBaguette }}</td>
+                            </tr>
+                            <tr>
+                                <th>Baguette</th>
+                                <td>
+                                    {% if sujet.baguette %}
+                                        {{ sujet.baguette.libelle }}
+                                    {% else %}
+                                        <span class="text-danger fst-italic">N.R</span>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Taille du Passe-Partout</th>
+                                <td>{{ sujet.taillePP }}</td>
+                            </tr>
+                            <tr>
+                                <th>Passe-Partout</th>
+                                <td>
+                                    {% if sujet.passepartout %}
+                                        {{ sujet.passepartout.libelle }}
+                                    {% else %}
+                                        <span class="text-danger fst-italic">N.R</span>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Taille du Verre</th>
+                                <td>{{ sujet.tailleVerre }}</td>
+                            </tr>
+                            <tr>
+                                <th>Verre</th>
+                                <td>
+                                    {% if sujet.verre %}
+                                        {{ sujet.verre.libelle }}
+                                    {% else %}
+                                        <span class="text-danger fst-italic">N.R</span>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Montant Total</th>
+                                <td>{{ sujet.montantTotal }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
 
 {% endblock %}
